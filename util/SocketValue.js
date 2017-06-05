@@ -51,7 +51,7 @@ const getClientsMsg = (clientList) => {
     let msgId = new Date().getTime();
     return {
         mid : msgId,
-        mtype : msgType.system ,
+        mtype : msgType.clients ,
         mcontent : {clients:clientList}
     }
 }
