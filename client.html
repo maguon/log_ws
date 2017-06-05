@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button onclick="uploadRecord()">start</button>
+</body>
+<script>
+    var ws = null;
+    var objArray = [
+        {id:"1",name:"eews"},
+        {id:"2",name:"eews"},
+        {id:"3",name:"eews"},
+        {id:"4",name:"eews"},
+        {id:"5",name:"eews"},
+    ];
+    function getConnectMsg (){
+        var user = {
+            id : 10001,
+            name: "user2",
+            type :2
+        }
+        var msg ={
+            mid : user.id+"_"+ new Date().getTime(),
+            mtype : 2,
+            mcontent : user
+        }
+
+        return msg;
+
+    }
+
+    function getUploadMsg  (msgObj) {
+        var msgId = new Date().getTime();
+        return {
+            mid : msgId,
+            mtype : 4 ,
+            mcontent : {msg:msgObj}
+        }
+    }
+
+    function uploadRecord (){
+        if(ws && ws.readyState ==1){
+            for(var i=0;i<objArray.length;i++)
+            {
+                ws.send(JSON.stringify(getUploadMsg(objArray[i])));
+            }
+        }
+
+    }
+    function init(){
+        if(ws){
+            return;
+        }else{
+            ws =  new WebSocket("ws://localhost:9005");
+
+            ws.onmessage = function(message){
+                console.log(JSON.parse(message.data));
+
+            }
+            ws.onopen = function(event) {
+                var msgString = JSON.stringify(getConnectMsg());
+                ws.send(msgString)
+                console.log(event)
+                return;
+            }
+            return;
+        }
+    }
+    init();
+</script>
+</html>
