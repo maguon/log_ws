@@ -113,7 +113,7 @@ const sendMsg = (socket,msg) =>{
 const sendClients = (socket) => {
     let clientMsg = socketValue.getClientsMsg();
     clientMsg.mcontent.clients = userList.get();
-    sendMsg(socket,socketUtil.jsonToMsg(clientMsg));
+    sendMsg(socket,clientMsg);
 }
 
 

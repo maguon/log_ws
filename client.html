@@ -54,7 +54,7 @@
         if(ws){
             return;
         }else{
-            ws =  new WebSocket("ws://localhost:9005");
+            ws =  new WebSocket("ws://stg.myxxjs.com:9005");
 
             ws.onmessage = function(message){
                 console.log(JSON.parse(message.data));

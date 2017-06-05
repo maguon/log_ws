@@ -43,7 +43,7 @@ const getSystemMsg = (msgContent) =>{
     return {
         mid : msgId,
         mtype : msgType.system ,
-        mcontent : {msg:msgContent}
+        mcontent : msgContent
     }
 }
 
