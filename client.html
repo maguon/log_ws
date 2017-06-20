@@ -10,11 +10,10 @@
 <script>
     var ws = null;
     var objArray = [
-        {id:"1",name:"eews"},
-        {id:"2",name:"eews"},
-        {id:"3",name:"eews"},
-        {id:"4",name:"eews"},
-        {id:"5",name:"eews"},
+        {uploadId:"123abc",vin:"vin1231",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
+        {uploadId:"123abc",vin:"vin1232",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
+        {uploadId:"123abc",vin:"vin1233",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
+        {uploadId:"123abc",vin:"vin1234",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
     ];
     function getConnectMsg (){
         var user = {
@@ -32,21 +31,35 @@
 
     }
 
-    function getUploadMsg  (msgObj) {
-        var msgId = new Date().getTime();
+    function getUploadMsg  (msgObj,i) {
+        var msgId = new Date().getTime()+"_"+i;
         return {
             mid : msgId,
             mtype : 4 ,
-            mcontent : {msg:msgObj}
+            mcontent : msgObj
         }
     }
 
     function uploadRecord (){
         if(ws && ws.readyState ==1){
-            for(var i=0;i<objArray.length;i++)
-            {
-                ws.send(JSON.stringify(getUploadMsg(objArray[i])));
+            var objLength = objArray.length;
+            console.log(objLength)
+            if(objLength>0){
+                ws.send(JSON.stringify(getUploadMsg(objArray[objLength-1],objLength-1)));
             }
+
+        }
+
+    }
+
+    function acknowledgeRecord(){
+        var objLength = objArray.length;
+
+        if(objLength>0){
+            objArray.splice(objArray.length-1,1);
+        }
+        if(objArray.length>0){
+            uploadRecord();
         }
 
     }
@@ -54,10 +67,13 @@
         if(ws){
             return;
         }else{
-            ws =  new WebSocket("ws://stg.myxxjs.com:9005");
+            ws =  new WebSocket("ws://127.0.0.1:9005");
 
             ws.onmessage = function(message){
-                console.log(JSON.parse(message.data));
+                var msgObj = JSON.parse(message.data);
+                if(msgObj.mtype == "4"){
+                    acknowledgeRecord()
+                }
 
             }
             ws.onopen = function(event) {

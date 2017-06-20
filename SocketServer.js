@@ -10,7 +10,8 @@ const logger = serverLogger.createLogger('SocketServer.js');
 const SocketListInstance = require('./bl/SocketListInstance.js');
 const MessageListInstance = require('./bl/MessageListInstance.js');
 const UserListInstance = require('./bl/UserListInstance.js');
-
+const carDAO = require('./dao/CarDAO.js');
+const upload = require('./bl/Upload.js');
 const socketList =  new SocketListInstance.Instance();
 const msgList = new MessageListInstance.Instance();
 const userList = new UserListInstance.Instance();
@@ -79,7 +80,6 @@ const disconnectUserSocket = (userId) => {
 }
 
 const getSocketInfo = (socket ,socketList) => {
-    //let socketList = socketList.get();
     let socketInfo = null;
     for(let socketItem in socketList){
         if(socketList[socketItem]== socket){
@@ -170,7 +170,7 @@ const forceQuitEvent = (socket) =>{
         }
     }
 }
-const connectEvent = (msg,ws) =>{
+const dispatcher = (msg,ws) =>{
 
     let msgObj = socketUtil.msgToJson(msg);
     if(msgObj){
@@ -185,55 +185,26 @@ const connectEvent = (msg,ws) =>{
             return;
         }
         if(msgObj.mtype == socketValue.msgType.upload){
-            console.log(msgObj)
+            console.log(msgObj.mcontent);
+            upload.uploadCarTmp(ws,msgObj);
             return;
         }
     }else{
         logger.warn("message format error");
         return;
     }
-
-    /*if(msgObj){
-        switch (msgObj[socketValue.msgEvent]){
-            //connect
-            case socketValue.socketEvent.connect :
-                saveWs(msgObj[socketValue.msgSender],ws);
-                doSendClients();
-                break;
-            //speak
-            case socketValue.socketEvent.speak :
-                doSpeak(msgObj);
-                break;
-            //broadcast
-            case socketValue.socketEvent.broadcast :
-                doBroadcast(msgObj);
-                break;
-            //get all clients
-            case socketValue.socketEvent.clients:
-                doSendClients();
-                break;
-            //disconnect ;
-            case socketValue.socketEvent.quit:
-                doQuit(msgObj[socketValue.msgSender],ws)
-                break;
-            //event error
-            default:
-                logger.warn(msgObj[socketValue.msgEvent]);
-                break;
-        }
-    }else{
-        logger.warn("message format error");
-    }*/
 }
 
 
 wss.on('connection', function connection(ws) {
 
     ws.on('message', function incoming(message) {
+        console.log(message)
         logger.debug("Message:"+message);
         //process user new socket connections
-        connectEvent(message,ws);
+        dispatcher(message,ws);
         //broadcast clients
+
 
     });
     ws.on('close',function(e){
