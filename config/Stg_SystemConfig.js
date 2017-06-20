@@ -4,7 +4,7 @@ const mysqlConnectOptions ={
     user: 'log',
     password: 'log_base',
     database:'log_base',
-    host: '47.88.103.131' ,
+    host: '47.93.121.1' ,
     charset : 'utf8mb4',
     //,dateStrings : 'DATETIME'
 };
