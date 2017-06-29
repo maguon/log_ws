@@ -6,8 +6,8 @@
     "log4js": "*",
     "moment": "2.18.1",
     "mysql": "*",
-    "Promise" : "1.0.5" ,
-    "ws":"1.1.1"
+    "promise": "8.0.0",
+    "ws": "1.1.1"
   },
   "scripts": {
     "start": "node SocketServer.js",

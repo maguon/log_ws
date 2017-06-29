@@ -10,10 +10,10 @@
 <script>
     var ws = null;
     var objArray = [
-        {uploadId:"123abc",vin:"vin1231",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
-        {uploadId:"123abc",vin:"vin1232",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
-        {uploadId:"123abc",vin:"vin1233",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
-        {uploadId:"123abc",vin:"vin1234",makeId:10,routeStartId:11,routeEndId:11,entrustId:12},
+        {uploadId:"123abc",vin:"vin1231",makeId:115,routeStartId:110,routeEndId:111,entrustId:172,userId:38},
+        {uploadId:"123abc",vin:"vin1232",makeId:115,routeStartId:110,routeEndId:111,entrustId:172,userId:38},
+        {uploadId:"123abc",vin:"vin1233",makeId:115,routeStartId:110,routeEndId:111,entrustId:172,userId:38},
+        {uploadId:"123abc",vin:"vin1234",makeId:115,routeStartId:110,routeEndId:111,entrustId:172,userId:38}
     ];
     function getConnectMsg (){
         var user = {
@@ -71,6 +71,7 @@
 
             ws.onmessage = function(message){
                 var msgObj = JSON.parse(message.data);
+                console.log(msgObj)
                 if(msgObj.mtype == "4"){
                     acknowledgeRecord()
                 }

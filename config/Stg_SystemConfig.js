@@ -22,5 +22,9 @@ const loggerConfig = {
         }
     ]
 }
+const hosts = {
+    record : {host:"stg.myxxjs.com",port:9004},
+    auth : {host:"localhost",port:9009}
+}
 
-module.exports = { mysqlConnectOptions ,loggerConfig, logLevel   }
+module.exports = { mysqlConnectOptions ,loggerConfig, logLevel ,hosts  }

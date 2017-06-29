@@ -1,0 +1,16 @@
+<html>
+
+<body>
+
+<iframe id="gps_frame" style="width: 100%;height: 100%;" src="http://139.224.65.40/webgps/VehicleMonitor.aspx"></iframe>
+
+
+</body>
+<script language="javascript">
+    refresh_iframe=function()
+    {
+        document.getElementById('gps_frame').contentWindow.location.reload();
+    }
+    setInterval("refresh_iframe()",2000000)
+</script>
+</html>

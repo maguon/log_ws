@@ -186,7 +186,7 @@ const dispatcher = (msg,ws) =>{
         }
         if(msgObj.mtype == socketValue.msgType.upload){
             console.log(msgObj.mcontent);
-            upload.uploadCarTmp(ws,msgObj);
+            upload.uploadCar(ws,msgObj);
             return;
         }
     }else{

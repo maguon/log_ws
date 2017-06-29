@@ -1,7 +1,6 @@
 'use strict'
 const http = require('http');
 const https = require('https');
-const oAuthUtil = require('./OAuthUtil.js');
 const qs = require('querystring');
 
 const httpGet = (host,url,req,params,callback) => {
