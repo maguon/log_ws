@@ -106,29 +106,40 @@ const uploadCar = (ws,msgObj)=>{
         return addCar(carObj);
     },(error)=>{
         msgObj.mcontent ={success:false,msg:error.message};
-        ws.send(JSON.stringify(msgObj))
+        return{success:false,msg:error.message};
     }).then((result)=>{
-        carRecordObj ={
-            userId : params.userId,
-            userType : carExtraObj.type || 99 ,
-            username : carExtraObj.real_name || 'admin' ,
-            content : '车辆信息批量录入系统 '+ params.uploadId,
-            carId : result.insertId,
-            vin : params.vin,
-            op : 10
+        if(result.success != false){
+            carRecordObj ={
+                userId : params.userId,
+                userType : carExtraObj.type || 99 ,
+                username : carExtraObj.real_name || 'admin' ,
+                content : '车辆信息批量录入系统 '+ params.uploadId,
+                carId : result.insertId,
+                vin : params.vin,
+                op : 10
+            }
+            return addCarRecord(carRecordObj);
+        }else{
+            return result;
         }
-        return addCarRecord(carRecordObj);
+
     },(error)=>{
         msgObj.mcontent ={success:false,msg:error.message};
-        ws.send(JSON.stringify(msgObj))
+        logger.error('uploadCar addCarRecord' + error.stack);
+        return {success:false,msg:error.message};
     }).then((result)=>{
-        logger.info(" uploadCar addCarRecord " + "success");
-        msgObj.mcontent= {success:true};
-        ws.send(JSON.stringify(msgObj))
+        if(result&&result.insertId>0){
+            logger.info(" uploadCar addCarRecord " + "success");
+            msgObj.mcontent= {success:true};
+
+        }else{
+            msgObj.mcontent = result;
+        }
+        return ws.send(JSON.stringify(msgObj))
     },(error)=>{
         logger.warn(" uploadCar addCarRecord " + "failed");
         msgObj.mcontent= {success:true};
-        ws.send(JSON.stringify(msgObj))
+        return ws.send(JSON.stringify(msgObj))
     })
 
     /*carDAO.addCarTmp(params,(error,result)=>{
