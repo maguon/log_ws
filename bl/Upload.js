@@ -124,9 +124,11 @@ const uploadCar = (ws,msgObj)=>{
     }).then((result)=>{
         logger.info(" uploadCar addCarRecord " + "success");
         msgObj.mcontent= {success:true};
+        ws.send(JSON.stringify(msgObj))
     },(error)=>{
         logger.warn(" uploadCar addCarRecord " + "failed");
         msgObj.mcontent= {success:true};
+        ws.send(JSON.stringify(msgObj))
     })
 
     /*carDAO.addCarTmp(params,(error,result)=>{
