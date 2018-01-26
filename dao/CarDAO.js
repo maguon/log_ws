@@ -26,8 +26,8 @@ const  addCarTmp = (params,callback) =>{
 
 const addCar = (params,callback) => {
     let query = " insert into car_info (vin,user_id,upload_id,make_id,make_name,model_id,model_name," +
-        " route_start_id,route_start,base_addr_id,route_end_id,route_end,receive_id,entrust_id,order_date,colour,engine_num,remark) " +
-        " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) ";
+        " route_start_id,route_start,base_addr_id,route_end_id,route_end,receive_id,entrust_id,order_date,order_date_id,colour,engine_num,remark) " +
+        " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?) ";
     let paramsArray=[],i=0;
     paramsArray[i++]=params.vin;
     paramsArray[i++]=params.userId;
@@ -44,6 +44,7 @@ const addCar = (params,callback) => {
     paramsArray[i++]=params.receiveId;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.orderDate;
+    paramsArray[i++]=params.orderDateId;
     paramsArray[i++]=params.colour;
     paramsArray[i++]=params.engineNum;
     paramsArray[i]=params.remark;
