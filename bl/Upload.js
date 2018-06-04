@@ -108,7 +108,7 @@ const uploadCar = (ws,msgObj)=>{
         msgObj.mcontent ={success:false,msg:error.message};
         return{success:false,msg:error.message};
     }).then((result)=>{
-        if(result.success != false){
+        if(result.insertId > 0){
             carRecordObj ={
                 userId : params.userId,
                 userType : carExtraObj.type || 99 ,
