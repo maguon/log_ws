@@ -39,9 +39,9 @@ const addCar = (params,callback) => {
     paramsArray[i++]=params.routeStartId;
     paramsArray[i++]=params.routeStart;
     paramsArray[i++]=params.baseAddrId;
-    paramsArray[i++]=params.routeEndId;
+    paramsArray[i++]=params.routeEndId==''?null:params.routeEndId;
     paramsArray[i++]=params.routeEnd;
-    paramsArray[i++]=params.receiveId;
+    paramsArray[i++]=params.receiveId==''?null:params.receiveId;;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.orderDate;
     paramsArray[i++]=params.orderDateId;
