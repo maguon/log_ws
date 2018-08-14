@@ -1,4 +1,5 @@
 'use strict'
+const moment = require('moment')
 const listOfValue = require('../util/ListOfValue.js');
 const carDAO = require('../dao/CarDAO.js');
 const sysRecordDAO = require('../dao/SysRecordDAO.js');
@@ -102,6 +103,7 @@ const uploadCar = (ws,msgObj)=>{
         }
         if(params.orderDate !=null && params.orderDate!=''){
             carObj.orderDate = params.orderDate;
+            carObj.orderDateId = parseInt(moment(params.orderDate).format('YYYYMMDD'));
         }
         return addCar(carObj);
     },(error)=>{
