@@ -24,10 +24,22 @@ const  addCarTmp = (params,callback) =>{
     });
 }
 
+
+
 const addCar = (params,callback) => {
+
+    if(params.routeEndId!=null && params.routeEndId !=''){
+        if(params.routeStartId>params.routeEndId){
+            params.routeId = params.routeEndId+''+params.routeStartId;
+        }else{
+            params.routeId = params.routeStartId+''+params.routeEndId;
+        }
+    }else{
+        params.routeId = 0;
+    }
     let query = " insert into car_info (vin,user_id,upload_id,make_id,make_name,model_id,model_name," +
-        " route_start_id,route_start,base_addr_id,route_end_id,route_end,receive_id,entrust_id,order_date,order_date_id,colour,engine_num,remark) " +
-        " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?) ";
+        " route_start_id,route_start,base_addr_id,route_end_id,route_id,route_end,receive_id,entrust_id,order_date,order_date_id,colour,engine_num,remark) " +
+        " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?) ";
     let paramsArray=[],i=0;
     paramsArray[i++]=params.vin;
     paramsArray[i++]=params.userId;
@@ -39,7 +51,18 @@ const addCar = (params,callback) => {
     paramsArray[i++]=params.routeStartId;
     paramsArray[i++]=params.routeStart;
     paramsArray[i++]=params.baseAddrId;
-    paramsArray[i++]=params.routeEndId==''?null:params.routeEndId;
+    //Ôö¼Óroute_end_id ºÍ route_id
+    if(params.routeEndId !=null && params.routeEndId != ''){
+        paramsArray[i++]=params.routeEndId;
+        if(params.routeStartId>params.routeEndId){
+            paramsArray[i++] = params.routeEndId+''+params.routeStartId;
+        }else{
+            paramsArray[i++] = params.routeStartId+''+params.routeEndId;
+        }
+    }else{
+        paramsArray[i++]=null;
+        paramsArray[i++] =0;
+    }
     paramsArray[i++]=params.routeEnd;
     paramsArray[i++]=params.receiveId==''?null:params.receiveId;;
     paramsArray[i++]=params.entrustId;
