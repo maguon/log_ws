@@ -118,7 +118,7 @@ const uploadCar = (ws,msgObj)=>{
                 content : '车辆信息批量录入系统 '+ params.uploadId,
                 carId : result.insertId,
                 vin : params.vin,
-                op : 10
+                op : 1
             }
             return addCarRecord(carRecordObj);
         }else{
