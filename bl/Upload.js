@@ -99,7 +99,8 @@ const uploadCar = (ws,msgObj)=>{
             routeEndId : params.routeEndId,
             routeEnd : carExtra.routeEnd,
             receiveId : params.receiveId,
-            entrustId : params.entrustId
+            entrustId : params.entrustId,
+            shipName : params.shipName
         }
         if(params.orderDate !=null && params.orderDate!=''){
             carObj.orderDate = params.orderDate;
