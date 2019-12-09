@@ -38,7 +38,7 @@ const addCar = (params,callback) => {
         params.routeId = 0;
     }
     let query = " insert into car_info (vin,user_id,upload_id,make_id,make_name,model_id,model_name," +
-        " route_start_id,route_start,base_addr_id,route_end_id,route_id,route_end,receive_id,entrust_id,ship_name,order_date,order_date_id,colour,engine_num,compand_id,remark) " +
+        " route_start_id,route_start,base_addr_id,route_end_id,route_id,route_end,receive_id,entrust_id,ship_name,order_date,order_date_id,colour,engine_num,company_id,remark) " +
         " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ,?) ";
     let paramsArray=[],i=0;
     paramsArray[i++]=params.vin;
