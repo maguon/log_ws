@@ -101,7 +101,7 @@ const uploadCar = (ws,msgObj)=>{
             receiveId : params.receiveId,
             entrustId : params.entrustId,
             shipName : params.shipName,
-            compandId : params.compandId,
+            companyId : params.companyId,
         }
         if(params.orderDate !=null && params.orderDate!=''){
             carObj.orderDate = params.orderDate;
